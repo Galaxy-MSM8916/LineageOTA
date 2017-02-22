@@ -90,8 +90,15 @@
          */
     	public function isValid($params){
             $ret = false;
+	    $device = $params['device'];
+	    $device_extra = '';
 
-            if ( $params['device'] == $this->model ) {
+	    /* check if the device is one of the unified ones */
+	    if (($device == "gprimeltecan") || ($device == "gprimeltetmo") || ($device == "gprimeltemtr")) {
+		    $device_extra = 'gprimelte';
+	    }
+
+            if (($device == $this->model) || ($device_extra == $this->model))  {
                 if ( count($params['channels']) > 0 ) {
                     foreach ( $params['channels'] as $channel ) {
                         if ( strtolower($channel) == $this->channel ) $ret = true;
